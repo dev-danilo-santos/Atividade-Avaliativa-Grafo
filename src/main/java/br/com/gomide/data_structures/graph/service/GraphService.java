@@ -2,6 +2,7 @@ package br.com.gomide.data_structures.graph.service;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -50,12 +51,28 @@ public class GraphService implements IGraphService {
 						}
 					}
 				}
-				
 				// adiciona a aresta
 				vertice.getArestas().add(new Aresta(firstNode, secondNode));
 			}
 		}
-		
+	}
+	
+	@Override
+	public void connectNode(String firstNode, String secondNode, Integer weight, Graph graph) {
+		for (Vertice vertice : graph.getVertices()) {
+			if(vertice.getValor().equals(firstNode)) {
+				// verificar se já existe uma aresta igual a inserida
+				if(vertice.getArestas() != null && vertice.getArestas().size() != 0) {
+					for (Aresta aresta : vertice.getArestas()) {
+						if(aresta.getOrigem() == firstNode && aresta.getDestino() == secondNode) {
+							graph.adicionaMultLink();
+						}
+					}
+				}
+				// adiciona a aresta
+				vertice.getArestas().add(new Aresta(firstNode, secondNode,weight));
+			}
+		}
 	}
 
 	@Override
@@ -214,6 +231,18 @@ public class GraphService implements IGraphService {
 		return graph.toString(graph);
 	}
 	
+	@Override
+	public String showShortestPath(String origin, String destination, DirectedGraph graph) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public String showShortestPath(String origin, String destination, NonDirectedGraph graph) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	public  <T> boolean verificarListas( ArrayList<T> lista) {
 		if(lista.size() != 0 && lista != null) return true;
 		else return false;
@@ -236,4 +265,27 @@ public class GraphService implements IGraphService {
 		}
 	  return destinos;
 	}
+	
+	public String percorrerComPeso(String origem, Graph graph){
+		ArrayList<Aresta> arestas = new ArrayList<>();
+		ArrayList<Integer> weights = new ArrayList<>();
+		String destino = ""; 
+		if (verificarListas(graph.getVertices())) {
+			for (Vertice vertice : graph.getVertices()) {
+				if(vertice.getValor().equals(origem)) {
+					
+					if(verificarListas(vertice.getArestas())){
+						for (Aresta aresta : vertice.getArestas()) {
+							arestas.add(aresta);
+							weights.add(aresta.getWeight());
+						}
+						
+						
+					}
+				}
+			}
+		}
+	  return destino;
+	}
+	
 }
