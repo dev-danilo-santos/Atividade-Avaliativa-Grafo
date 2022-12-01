@@ -292,7 +292,7 @@ public class GraphService implements IGraphService {
 					if(verificarListas(vertice.getArestas())){
 						for (Aresta aresta : vertice.getArestas()) {
 							//weights.add(aresta.getWeight());
-							    if (aresta.getWeight() < min) {
+							    if (aresta.getWeight() < min && aresta.getWeight()!= 0) {
 					            	min = aresta.getWeight();	
 					            	destino = aresta.getDestino();
 							    }

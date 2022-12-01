@@ -3,7 +3,7 @@ package br.com.gomide.data_structures.graph.model;
 public class Aresta {
 	private String origem;
 	private String destino;
-	private int weight;
+	private int weight = 0;
 	
 	public Aresta(String origem, String destino) {
 		super();

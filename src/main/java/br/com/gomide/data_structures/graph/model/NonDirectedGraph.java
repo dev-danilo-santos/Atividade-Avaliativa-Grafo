@@ -1,10 +1,6 @@
 package br.com.gomide.data_structures.graph.model;
 
 public class NonDirectedGraph extends Graph{
-
-	
-	
-	
 	
 
 	@Override
@@ -16,7 +12,11 @@ public class NonDirectedGraph extends Graph{
 		for (Vertice vertice : graph.getVertices()) {
 			if(vertice.getArestas() != null && vertice.getArestas().size() != 0) {
 				for(int i = 0; i < vertice.getArestas().size(); i++) {
-					aux+="\n"+"Link: "+vertice.getArestas().get(i).getOrigem()+" "+vertice.getArestas().get(i).getDestino();
+					if(vertice.getArestas().get(i).getWeight() != 0) {
+						aux+="\n"+"Link: "+vertice.getArestas().get(i).getOrigem()+" "+vertice.getArestas().get(i).getDestino()+" Weight: "+vertice.getArestas().get(i).getWeight();
+					} else {
+						aux+="\n"+"Link: "+vertice.getArestas().get(i).getOrigem()+" "+vertice.getArestas().get(i).getDestino();
+					}
 				}
 			}
 		}
