@@ -74,7 +74,7 @@ public class GraphService implements IGraphService {
 			}
 		}
 	}
-
+	
 	@Override
 	public int countLoops(Graph graph) {
 		int contador = 0;
@@ -233,8 +233,22 @@ public class GraphService implements IGraphService {
 	
 	@Override
 	public String showShortestPath(String origin, String destination, DirectedGraph graph) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder path = new StringBuilder(); path.append("Start -> "+origin+" ");
+		String busca = origin;
+		int contador = 0;
+		
+		for(;;) {
+			if(path.toString().contains(destination)) {
+				break;
+			}
+			if(contador == 100) break;
+			String aux = percorrerComPeso(busca, graph);
+			path.append(aux);
+			busca = percorrerComPeso(busca, graph).substring(aux.length()-2,aux.length()-1);
+			contador++;
+		}
+		
+		return path.toString()+"-> End";
 	}
 	
 	@Override
@@ -267,25 +281,26 @@ public class GraphService implements IGraphService {
 	}
 	
 	public String percorrerComPeso(String origem, Graph graph){
-		ArrayList<Aresta> arestas = new ArrayList<>();
 		ArrayList<Integer> weights = new ArrayList<>();
-		String destino = ""; 
+		int min = 2147483647;
+		String destino = "";
+		
 		if (verificarListas(graph.getVertices())) {
 			for (Vertice vertice : graph.getVertices()) {
 				if(vertice.getValor().equals(origem)) {
 					
 					if(verificarListas(vertice.getArestas())){
 						for (Aresta aresta : vertice.getArestas()) {
-							arestas.add(aresta);
-							weights.add(aresta.getWeight());
+							//weights.add(aresta.getWeight());
+							    if (aresta.getWeight() < min) {
+					            	min = aresta.getWeight();	
+					            	destino = aresta.getDestino();
+							    }
 						}
-						
-						
 					}
 				}
 			}
 		}
-	  return destino;
+	  return "("+min+") "+destino+" ";
 	}
-	
 }

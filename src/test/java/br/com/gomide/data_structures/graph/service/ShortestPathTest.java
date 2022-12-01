@@ -126,5 +126,5 @@ public class ShortestPathTest {
         String path = graphService.showShortestPath("A", "F", (DirectedGraph) graph);
 
         assertTrue(path.equals("Start -> A (2) C (3) E (4) D (11) F -> End"));
-    }
+    }							
 }
